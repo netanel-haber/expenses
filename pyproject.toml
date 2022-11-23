@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "balances"
+version = "0.1.0"
+description = ""
+authors = ["Netanel Haber <netanel.t.haber@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^1.5.2"
+ipython = "^8.6.0"
+jupyter = "^1.0.0"
+ipykernel = "^6.18.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
