@@ -7,9 +7,6 @@ authors = ["Netanel Haber <netanel.t.haber@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.11"
 pandas = "^1.5.2"
-ipython = "^8.6.0"
-jupyter = "^1.0.0"
-ipykernel = "^6.18.0"
 black = "^22.10.0"
 
 [tool.poetry.dev-dependencies]
