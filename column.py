@@ -1,0 +1,8 @@
+DATE = "Date"
+BALANCE = "Balance"
+MINUS = "Minus"
+PLUS = "Plus"
+FOR = "For"
+ACTION = "Action"
+ORIGIN = "Origin"
+EXECUTOR = "Executor"
