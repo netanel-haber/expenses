@@ -5,13 +5,15 @@ from normalize import normalize
 import matplotlib.pyplot as plt
 
 
-if __name__ == "__main__":
-    df = normalize(pd.read_csv("balance.csv", thousands=","))
-
-    df.pivot_table(
+def create_pivot_table(path) -> pd.DataFrame:
+    df = normalize(pd.read_csv(path, thousands=","))
+    return df.pivot_table(
         index=[df[cl.DATE].dt.year, df[cl.DATE].dt.month],
         columns=cl.ACTION,
         values=cl.DIFF,
-    ).plot.bar(stacked=True)
+    )
 
+
+if __name__ == "__main__":
+    create_pivot_table("balance.csv").plot.bar(stacked=True)
     plt.show()
