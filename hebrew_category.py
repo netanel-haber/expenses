@@ -2,7 +2,6 @@ ARMY_REBATE = 'משהב"ט'
 ATM = "משיכה מבנקט"
 BANK = "ע.מפעולות-ישיר"
 BIT = "bit העברת כסף"
-BUILDING_TAX = 'ועד בית - הלפיד 6 ר"ג'
 CHECK = "שיק"
 CRAP = 'השלמה למינ ד"נ'
 CREDIT_CARD = "מקס איט פיננסי"

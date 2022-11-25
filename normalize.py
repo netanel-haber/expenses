@@ -17,19 +17,12 @@ straight_forward_replacements = {
                 hc.ONE_TIME_ORDER,
             ],
             ca.SALARY: [hc.SALARY, hc.SALARY_NET, hc.SALARY_3, hc.UNEMPLOYMENT],
-            ca.CREDIT_CARD: [
-                hc.CREDIT_CARD,
-                hc.DIRECT,
-                hc.DIRECT_BATCHED,
-                hc.ATM,
-                hc.BIT,
-            ],
+            ca.CREDIT_CARD: [hc.CREDIT_CARD, hc.ATM, hc.BIT, hc.FOREX],
+            ca.DEBIT_CARD: [hc.DIRECT, hc.DIRECT_BATCHED],
             ca.IB: [hc.IB],
             ca.BANK: [hc.BANK, hc.REBATE],
-            ca.BUILDING_TAX: [hc.BUILDING_TAX],
             ca.MISC: [hc.CRAP, hc.REBATE],
             ca.ARMY_REBATE: [hc.ARMY_REBATE],
-            ca.FOREX: [hc.FOREX],
         }
     ).items()
     for hcat in hcats
@@ -48,7 +41,17 @@ def normalize(df: pd.DataFrame) -> pd.DataFrame:
     replace_action_when_executor(df, ex.IB, ca.IB)
     replace_action_when_executor(df, ex.PARENTS, ca.INHERITANCE)
     replace_action_when_executor(df, ex.YAHEL_MEDITATION, ca.MEDITATION)
+    replace_action_when_executor(df, ex.BUILDING_TAX, ca.BUILDING_TAX)
     df = df.replace(straight_forward_replacements)
+
+    unaccounted_for_categories = df[~df[cl.ACTION].isin(ca.__dict__.values())]
+    assert (
+        unaccounted_for_categories.empty
+    ), f"{unaccounted_for_categories[cl.ACTION]} - all actions must be registered in categories module."
+
+    df = filter_out_categories(
+        df, {ca.IB, ca.INHERITANCE, ca.ARMY_REBATE, ca.SALARY, ca.MISC}
+    )
 
     df[cl.DATE] = pd.to_datetime(df[cl.DATE], dayfirst=True)
     df[cl.BALANCE] = pd.to_numeric(df[cl.BALANCE])
@@ -56,5 +59,4 @@ def normalize(df: pd.DataFrame) -> pd.DataFrame:
     df[cl.PLUS] = pd.to_numeric(df[cl.PLUS]).fillna(0)
     df[cl.DIFF] = df[cl.MINUS] - df[cl.PLUS]
 
-    df = filter_out_categories(df, {ca.IB, ca.INHERITANCE, ca.ARMY_REBATE, ca.SALARY})
     return df

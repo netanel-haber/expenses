@@ -1,6 +1,6 @@
 import pandas as pd
 import column as cl
-import category as ca
+import numpy as np
 from normalize import normalize
 import matplotlib.pyplot as plt
 
@@ -11,6 +11,7 @@ def create_pivot_table(path) -> pd.DataFrame:
         index=[df[cl.DATE].dt.year, df[cl.DATE].dt.month],
         columns=cl.ACTION,
         values=cl.DIFF,
+        aggfunc=np.sum,
     )
 
 
