@@ -1,0 +1,24 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+</head>
+
+<body>
+    <py-env>
+    - numpy
+    - pandas
+    - matplotlib
+    - paths:
+        - ./column.py
+        - ./normalize.py
+        - ./executor.py
+        - ./category.py
+        - ./hebrew_category.py
+        - ./balance.csv
+    </py-env>
+    <div id="matplotlib-lineplot" ></div>
+    <py-script output="matplotlib-lineplot" src="main.py"></py-script>
+</body>
+</html>
