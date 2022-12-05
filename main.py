@@ -22,4 +22,5 @@ def render_pivot_table(path) -> Figure:
     return fig
 
 
-render_pivot_table("balance.csv")
+if __name__ == "__main__":
+    render_pivot_table("balance.csv")

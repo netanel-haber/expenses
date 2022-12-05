@@ -17,8 +17,40 @@
         - ./category.py
         - ./hebrew_category.py
         - ./balance.csv
+        - ./main.py
     </py-env>
-    <div id="matplotlib-lineplot" ></div>
-    <py-script output="matplotlib-lineplot" src="main.py"></py-script>
+
+    <div id="file-upload-form">
+        <input type="file" id="uploaded-file" />
+        <button id="submit-button">Submit</button>
+    </div>
+    
+    <img id="matplotlib-lineplot"/>
+
+    <py-script>
+        from main import render_pivot_table
+        from js import document, console
+        from pyodide.ffi import create_proxy
+        from io import StringIO, BytesIO
+
+        input_el = document.getElementById("uploaded-file")
+        submit = document.getElementById("submit-button")
+        render = document.getElementById("matplotlib-lineplot")
+
+        def render_file(file_like="balance.csv"):
+            buf = BytesIO()
+            fig = render_pivot_table(file_like)
+            fig.savefig(buf, format='png')
+            buf.seek(0)
+            render.src = f"data:image/png;base64,{base64.b64encode(buf.read()).decode('UTF-8')}" 
+            
+        async def process_file(_):
+            for file in input_el.files.to_py():
+                render_file(StringIO(await file.text()))
+                return
+            render_file()
+
+        submit.addEventListener("click", create_proxy(process_file))
+    </py-script>
 </body>
 </html>
